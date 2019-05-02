@@ -1,8 +1,12 @@
 import React from 'react';
 import Board from './Board';
 import Square from './Square';
+import { connect } from 'react-redux';
 
 class Game extends React.Component{
+
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +19,11 @@ class Game extends React.Component{
   }
 
   handleClick(i) {
+    const { dispatch } = props;
+    event.preventDefault();
+    const action = {
+      type: 'CLICK'
+    };
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -101,4 +110,5 @@ function calculateWinner(squares) {
   return null;
 }
 
-export default Game;
+
+export default connect()(Game);
